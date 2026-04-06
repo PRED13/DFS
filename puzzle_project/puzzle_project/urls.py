@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
+from solver.views import index
 
 urlpatterns = [
-    path('', include('solver.urls')),   # ← ESTA LÍNEA FALTABA
+    path('', index),
     path('admin/', admin.site.urls),
-    path('api/', include('solver.urls')),
+    path('resolver/', resolver),
 ]
