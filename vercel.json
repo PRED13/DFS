@@ -1,14 +1,14 @@
 {
   "builds": [
     {
-      "src": "manage.py",
+      "src": "DFS/wsgi.py",
       "use": "@vercel/python@3.1.0"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "manage.py"
+      "dest": "puzzle_project/puzzle_project/wsgi.py"
     }
   ]
 }
