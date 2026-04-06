@@ -8,7 +8,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "puzzle_project/puzzle_project/wsgi.py"
+      "dest": "DFS/wsgi.py"
     }
   ]
 }
