@@ -1,8 +1,7 @@
 from django.contrib import admin
-from django.urls import path, include
-from solver.views import index
+from django.urls import path, include # Importante agregar 'include'
 
 urlpatterns = [
-    path('', index),
     path('admin/', admin.site.urls),
+    path('', include('solver.urls')), # Esto conecta TODO lo que esté en solver/urls.py
 ]
