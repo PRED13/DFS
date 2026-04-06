@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Puzzle DFS Solver</title>
+
+<style>
+
+body {
+
+    font-family: Arial, sans-serif;
+    background-color: #f5f9ff;
+    color: #1a2a4f;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+    margin: 0;
+
+}
+
+
+.container {
+
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+
+    width: 450px;
+
+    box-shadow:
+    0px 6px 18px rgba(0,0,0,0.08);
+
+}
+
+
+h1 {
+
+    text-align: center;
+    color: #0a3d91;
+
+}
+
+
+label {
+
+    font-weight: bold;
+
+}
+
+
+input {
+
+    width: 100%;
+    padding: 10px;
+
+    margin-top: 5px;
+    margin-bottom: 15px;
+
+    border-radius: 6px;
+    border: 1px solid #c7d7f5;
+
+}
+
+
+input:focus {
+
+    outline: none;
+
+    border-color: #0a3d91;
+
+}
+
+
+button {
+
+    width: 100%;
+
+    padding: 12px;
+
+    background: #0a3d91;
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+}
+
+
+button:hover {
+
+    background: #072b66;
+
+}
+
+
+pre {
+
+    background: #eef4ff;
+
+    padding: 15px;
+
+    border-radius: 6px;
+
+    margin-top: 20px;
+
+    overflow-x: auto;
+
+    font-size: 14px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Puzzle Lineal DFS</h1>
+
+<label>Estado inicial:</label>
+<input id="inicio" value="4,2,3,1">
+
+<label>Estado meta:</label>
+<input id="meta" value="1,2,3,4">
+
+<button onclick="resolver()">Resolver</button>
+
+<h2>Resultado:</h2>
+
+<pre id="resultado">Aquí aparecerá la solución...</pre>
+
+</div>
+
+
+<script>
+
+async function resolver() {
+
+    const inicio = document
+        .getElementById("inicio")
+        .value
+        .split(",")
+        .map(Number);
+
+    const meta = document
+        .getElementById("meta")
+        .value
+        .split(",")
+        .map(Number);
+
+    try {
+
+        const response = await fetch("/resolver/", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                inicio: inicio,
+                meta: meta
+            })
+
+        });
+
+        const data = await response.json();
+
+        let salida = "{\n  \"ruta\": [\n";
+
+        for(let i = 0; i < data.ruta.length; i++) {
+
+            salida += "    [" + data.ruta[i].join(",") + "]";
+
+            if(i < data.ruta.length - 1)
+                salida += ",\n";
+        }
+
+        salida += "\n  ],\n";
+        salida += "  \"pasos\": " + data.pasos + "\n}";
+
+        document.getElementById("resultado").innerText = salida;
+
+    }
+
+    catch(error) {
+
+        document.getElementById("resultado").innerText =
+            "Error conectando con el servidor";
+
+        console.error(error);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

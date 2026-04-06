@@ -1,1 +1,1 @@
-# DFS
+# Puzzle Lineal con Busqueda en Profundidad
